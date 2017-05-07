@@ -4,7 +4,7 @@ TaskManager.Models = {};
 
 TaskManager.Views = {};
 
-TaskManager.Collection = {};
+TaskManager.Collections = {};
 
 (function(TaskManager) {
     "use strict";

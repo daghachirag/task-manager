@@ -6,25 +6,33 @@
             this.render();
             this.makeTasksSortable();
             this.makeCardsSortable();
+            if (localStorage.taskManager) {
+                this.retrieveState(JSON.parse(localStorage.taskManager));
+            }
         },
 
         "render": function() {
             this.$el.append('<div class="tasks-container">' + '</div><div class="list-desc-container">' +
-                '<textarea class="title-editor"></textarea>'+
-                '<div class="add-task">Add</div><div class="hide-add-task">Cancel</div></div>'+
-                 '<div class="show-add-task">Add List...</div>');
+                '<textarea class="title-editor"></textarea>' +
+                '<div class="add-task">Add</div><div class="hide-add-task">Cancel</div></div>' +
+                '<div class="show-add-task">Add List...</div><div class="save-tasks">Save</div>');
             this.$('.list-desc-container').hide();
+            this.taskCollection = new TaskManager.Collections.Tasks();
         },
 
         "events": {
             "click .show-add-task": "showAddTask",
             "click .hide-add-task": "hideAddTask",
-            "click .add-task": "addTask"
+            "click .add-task": "addTask",
+            "click .save-tasks": "saveTasks"
         },
 
         "makeTasksSortable": function() {
             this.$('.tasks-container').sortable({
-                "handle": '.header'
+                "handle": '.header',
+                "update": $.proxy(function() {
+                    this.updateOrders();
+                }, this)
             });
         },
 
@@ -32,11 +40,24 @@
             this.$(".cards-container").sortable({
                 "connectWith": ".connected-sortable",
                 "placeholder": "highlight",
-                "receive": function(event, ui) {
-                    console.log("dropped on = " + this.id); // Where the item is dropped
-                    console.log("sender = " + ui.sender[0].id); // Where it came from
-                    console.log("item = " + ui.item[0].innerHTML); //Which item (or ui.item[0].id)
-                }
+                "receive": $.proxy(function(event, ui) {
+                    this.updateAllCardOrders();
+                }, this),
+                "update": $.proxy(function(event, ui) {
+                    ui.item.trigger('updateCardOrders');
+                }, this)
+            });
+        },
+
+        "updateOrders": function() {
+            this.$('.task-container').each(function(index, $task) {
+                $($task).trigger('orderUpdated', index);
+            });
+        },
+
+        "updateAllCardOrders": function() {
+            this.$('.task-container').each(function(index, $task) {
+                $($task).trigger('updateCardOrders');
             });
         },
 
@@ -53,26 +74,48 @@
         "addTask": function() {
             var $titleEditor = this.$('.list-desc-container').find('.title-editor'),
                 title = $titleEditor.val(),
-                $taskContainer;
+                $taskContainer,
+                taskModel;
             if (title) {
                 this.hideAddTask();
-                $taskContainer = $('<div>').addClass('task-container');
-                $taskContainer.append('<div class="cards-container connected-sortable"></div>');
-                this.$('.tasks-container').append($taskContainer);
-                new TaskManager.Views.Task({
-                    "el": $taskContainer,
-                    "model": new TaskManager.Models.Task({
-                        "title": title
-                    })
-                });
+                this.createTaskView({
+                    "title": title,
+                    "order": this.taskCollection.length
+                })
                 $titleEditor.val('');
                 this.makeCardsSortable();
             } else {
                 window.alert("Enter title");
             }
-        }
-    });
+        },
 
+        "createTaskView": function(options) {
+            var $taskContainer,
+                taskModel;
+            $taskContainer = $('<div>').addClass('task-container');
+            $taskContainer.append('<div class="cards-container connected-sortable"></div>');
+            this.$('.tasks-container').append($taskContainer);
+            taskModel = new TaskManager.Models.Task(options);
+            new TaskManager.Views.Task({
+                "el": $taskContainer,
+                "model": taskModel,
+                "cardCollection": options.cardCollection
+            });
+            this.taskCollection.add(taskModel);
+        },
+
+        "retrieveState": function(data) {
+            _.forEach(data, $.proxy(function(currentTask, index) {
+                this.createTaskView(currentTask);
+            }, this));
+            this.makeCardsSortable();
+        },
+
+        "saveTasks": function() {
+            localStorage.taskManager = JSON.stringify(this.taskCollection);
+        }
+
+    });
 
     new TaskManager.Views.Main({
         "el": ".interactive-container"
