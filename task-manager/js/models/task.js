@@ -1,12 +1,19 @@
-(function(Trello) {
+(function(TaskManager) {
     "use strict";
 
-    Trello.Models.Task = Backbone.Model.extend({
+    TaskManager.Models.Task = Backbone.Model.extend({
         "defaults": function() {
             return {
-                "tableChartMappingObj": {}
+                "title": '',
+                "createdAt": new Date().toString(),
+                "createdBy": this.getUser(),
+                "order": 0
             };
+        },
+
+        "getUser": function() {
+            return "Chirag Dagha";
         }
     });
 
-})(window.Trello);
+})(window.TaskManager);

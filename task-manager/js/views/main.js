@@ -1,7 +1,7 @@
-(function(Trello) {
+(function(TaskManager) {
     "use strict";
 
-    Trello.Views.Main = Backbone.View.extend({
+    TaskManager.Views.Main = Backbone.View.extend({
         "initialize": function() {
             this.render();
             this.makeTasksSortable();
@@ -9,7 +9,7 @@
         },
 
         "render": function() {
-
+            this.$el.append('<div class="tasks-container"></div><div class="add-task">Add List...</div>')
         },
 
         "events": {
@@ -17,7 +17,7 @@
         },
 
         "makeTasksSortable": function() {
-
+            this.$('.tasks-container').sortable();
         },
 
         "makeCardsSortable": function() {
@@ -36,7 +36,7 @@
             var $taskContainer = $('<div>').addClass('task-container');
             $taskContainer.append('<div class="cards-container connected-sortable"></div>');
             this.$('.tasks-container').append($taskContainer);
-            new Trello.Views.Task({
+            new TaskManager.Views.Task({
                 "el": $taskContainer
             });
             this.makeCardsSortable();
@@ -44,8 +44,8 @@
     });
 
 
-    new Trello.Views.Main({
+    new TaskManager.Views.Main({
         "el": ".interactive-container"
     });
 
-})(window.Trello);
+})(window.TaskManager);

@@ -1,12 +1,13 @@
-(function(Trello) {
+(function(TaskManager) {
     "use strict";
 
-    Trello.Views.Task = Backbone.View.extend({
+    TaskManager.Views.Task = Backbone.View.extend({
         "initialize": function() {
+            this.model = new TaskManager.Models.Task();
             this.render();
         },
         "render": function() {
-            var $addCard = $('<div>').addClass('add-card');
+            var $addCard = $('<div>Add Card...</div>').addClass('add-card');
             this.$el.append($addCard);
         },
         "events": {
@@ -17,4 +18,4 @@
         }
     });
 
-})(window.Trello);
+})(window.TaskManager);

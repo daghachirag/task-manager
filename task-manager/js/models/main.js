@@ -1,17 +1,17 @@
-var Trello = Window.Trello = {};
+var TaskManager = Window.TaskManager = {};
 
-Trello.Models = {};
+TaskManager.Models = {};
 
-Trello.Views = {};
+TaskManager.Views = {};
 
-Trello.Collection = {};
+TaskManager.Collection = {};
 
-(function(Trello) {
+(function(TaskManager) {
     "use strict";
 
 
-    Trello.Models.Main = Backbone.Model.extend({
+    TaskManager.Models.Main = Backbone.Model.extend({
 
     });
 
-})(window.Trello);
+})(window.TaskManager);
