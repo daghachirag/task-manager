@@ -3,19 +3,65 @@
 
     TaskManager.Views.Task = Backbone.View.extend({
         "initialize": function() {
-            this.model = new TaskManager.Models.Task();
+
             this.render();
         },
+
         "render": function() {
-            var $addCard = $('<div>Add Card...</div>').addClass('add-card');
-            this.$el.append($addCard);
+            var $header = $('<div></div>').addClass('header');
+
+            $header.append('<div class="title-content"></div><div class="delete-task">X</div>');
+
+            this.$el.append('<div class="card-desc-container">' +
+                '<textarea class="card-editor"></textarea>'+
+                '<div class="add-card">Add</div><div class="hide-add-card">Cancel</div></div>'+
+                 '<div class="show-add-card">Add Card...</div>');
+            this.$el.prepend($header);
+            this.hideAddCard();
+            this.$('.title-content').html(this.model.get('title'));
         },
+
         "events": {
-            "click .add-card": "addCard"
+            "click .show-add-card": "showAddCard",
+            "click .hide-add-card": "hideAddCard",
+            "click .add-card": "addCard",
+            "click .delete-task": "deleteTask"
         },
+
+        "showAddCard": function() {
+            this.$('.card-desc-container').show();
+            this.$('.show-add-card').hide();
+        },
+
+        "hideAddCard": function() {
+            this.$('.card-desc-container').hide();
+            this.$('.show-add-card').show();
+        },
+
         "addCard": function() {
-            this.$('.cards-container').prepend('<div class="card-container"></div>');
+            var $cardEditor = this.$('.card-desc-container').find('.card-editor'),
+                content = $cardEditor.val(),
+                $cardContainer;
+            if (content) {
+                this.hideAddCard();
+                $cardContainer = $('<div>').addClass('card-container');
+                this.$('.cards-container').append($cardContainer);
+                new TaskManager.Views.Card({
+                    "el": $cardContainer,
+                    "model": new TaskManager.Models.Card({
+                        "content": content
+                    })
+                });
+                $cardEditor.val('');
+            } else {
+                window.alert("Enter content");
+            }
+        },
+
+        "deleteTask": function() {
+            this.remove();
         }
+
     });
 
 })(window.TaskManager);
