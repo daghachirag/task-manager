@@ -41,7 +41,8 @@
 }
 
 .show-add-task,
-.show-add-card {
+.show-add-card,
+.save-tasks {
     width: 100px;
     height: 20px;
     background-color: lightgray;

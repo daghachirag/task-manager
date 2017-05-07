@@ -114,6 +114,7 @@
         },
 
         "retriveCards": function(data) {
+            data = _.sortBy(data, 'order');
             _.forEach(data, $.proxy(function(currentTask, index) {
                 this.createCardView(currentTask);
             }, this));

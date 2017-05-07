@@ -32,6 +32,7 @@
                 "handle": '.header',
                 "update": $.proxy(function() {
                     this.updateOrders();
+                    this.saveTasks();
                 }, this)
             });
         },
@@ -42,9 +43,11 @@
                 "placeholder": "highlight",
                 "receive": $.proxy(function(event, ui) {
                     this.updateAllCardOrders();
+                    this.saveTasks();
                 }, this),
                 "update": $.proxy(function(event, ui) {
                     ui.item.trigger('updateCardOrders');
+                    this.saveTasks();
                 }, this)
             });
         },
@@ -105,6 +108,7 @@
         },
 
         "retrieveState": function(data) {
+            data = _.sortBy(data, 'order');
             _.forEach(data, $.proxy(function(currentTask, index) {
                 this.createTaskView(currentTask);
             }, this));
