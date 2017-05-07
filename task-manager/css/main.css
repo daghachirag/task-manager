@@ -5,6 +5,7 @@
     vertical-align: top;
     margin: 5px;
     min-height: 20px;
+    position: relative;
 }
 
 .card-container {
@@ -89,12 +90,14 @@
 .delete-card,
 .delete-task,
 .edit-task,
-.edit-card {
+.edit-card,
+.add-comments {
     width: 20px;
     height: 20px;
     position: absolute;
     top: 0px;
     right: 0;
+    cursor: pointer;
 }
 
 .edit-task,
@@ -102,10 +105,15 @@
     right: 20px;
 }
 
+.add-comments {
+    right: 40px;
+}
+
 .cards-container {
     padding: 5px;
 }
 
+.body-modal,
 .modal {
     position: absolute;
     width: 100%;
@@ -114,6 +122,10 @@
     left: 0;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.5);
+}
+
+.body-modal {
+    display: none;
 }
 
 .change-task-container {

@@ -115,8 +115,11 @@
             this.makeCardsSortable();
         },
 
-        "saveTasks": function() {
+        "saveTasks": function(event) {
             localStorage.taskManager = JSON.stringify(this.taskCollection);
+            if (event) {
+                window.alert('Saved!');
+            }
         }
 
     });
