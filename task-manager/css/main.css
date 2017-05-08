@@ -3,6 +3,14 @@ body {
     background-color: rgb(137, 96, 158);
 }
 
+.title {
+    background-color: rgb(109, 88, 155);
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    padding: 5px;
+}
+
 .task-container {
     width: 210px;
     border: 1px solid;
