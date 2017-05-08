@@ -12,10 +12,7 @@
         },
 
         "render": function() {
-            this.$el.append('<div class="tasks-container">' + '</div><div class="list-desc-container">' +
-                '<textarea class="title-editor"></textarea>' +
-                '<div class="add-task">Add</div><div class="hide-add-task">Cancel</div></div>' +
-                '<div class="show-add-task">Add List...</div><div class="save-tasks">Save</div>');
+			this.$el.append(MainTemplate());
             this.$('.list-desc-container').hide();
             this.taskCollection = new TaskManager.Collections.Tasks();
         },
@@ -93,10 +90,8 @@
         },
 
         "createTaskView": function(options) {
-            var $taskContainer,
+            var $taskContainer=$(TaskContainer()),
                 taskModel;
-            $taskContainer = $('<div>').addClass('task-container');
-            $taskContainer.append('<div class="cards-container connected-sortable"></div>');
             this.$('.tasks-container').append($taskContainer);
             taskModel = new TaskManager.Models.Task(options);
             new TaskManager.Views.Task({

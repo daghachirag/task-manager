@@ -12,21 +12,14 @@
         },
 
         "render": function() {
-            var $header = $('<div></div>').addClass('header');
-
-            $header.append('<div class="title-content"></div><div class="edit-task">E</div><div class="delete-task">X</div>');
-
-            this.$el.append('<div class="card-desc-container">' +
-                '<textarea class="card-editor"></textarea>' +
-                '<div class="add-card">Add</div><div class="hide-add-card">Cancel</div></div>' +
-                '<div class="show-add-card">Add Card...</div>');
-            this.$el.prepend($header);
+			this.$el.append(ListTemplate());
             this.hideAddCard();
             this.changeTaskTitle();
             this.listenTo(this.model, 'destroy', function() {
                 this.remove();
             })
             .listenTo(this.model, 'change:title', $.proxy(this.changeTaskTitle, this));
+            this.$('.cards-container').insertAfter(this.$('.header'));
             this.$el.on('orderUpdated', $.proxy(function(event, index) {
                     this.model.set("order", index);
                 }, this))
@@ -88,10 +81,7 @@
         },
 
         "editTask": function() {
-            this.$el.append('<div class="modal">' +
-                '<div class="change-task-container"><textarea class="change-task-editor"></textarea>' +
-                '<div class="change-task">Add</div><div class="cancel-task-change">Cancel</div></div>' +
-                '</div></div>');
+			this.$el.append(EditTemplate);
             this.$('.change-task-editor').val(this.model.get('title'));
         },
 

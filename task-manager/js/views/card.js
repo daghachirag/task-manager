@@ -15,7 +15,7 @@
         },
 
         "render": function() {
-            this.$el.append('<div class="content-container"></div><div class="edit-card">E</div><div class="delete-card">X</div>');
+            this.$el.append(CardTemplate());
             this.changeCardText();
             this.listenTo(this.model, 'destroy', function() {
                     this.remove();
@@ -28,10 +28,7 @@
         },
 
         "editCard": function() {
-            this.$el.append('<div class="modal">' +
-                '<div class="change-card-container"><textarea class="change-card-editor"></textarea>' +
-                '<div class="change-card">Add</div><div class="cancel-change">Cancel</div></div>' +
-                '</div></div>');
+            this.$el.append(CardEditTemplate());
             this.$('.change-card-editor').val(this.model.get('content'));
         },
 

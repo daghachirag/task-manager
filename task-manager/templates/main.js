@@ -1,0 +1,3 @@
+var MainTemplate = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"tasks-container\"></div>\n<div class=\"list-desc-container\">\n	<textarea class=\"title-editor\"></textarea>\n	<div class=\"add-task\">Add</div><div class=\"hide-add-task\">Cancel</div></div>\n<div class=\"show-add-task\">Add List...</div><div class=\"save-tasks\">Save</div>";
+},"useData":true});
