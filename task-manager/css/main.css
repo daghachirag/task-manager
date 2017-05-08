@@ -1,3 +1,8 @@
+body {
+    margin: 0;
+    background-color: rgb(137, 96, 158);
+}
+
 .task-container {
     width: 210px;
     border: 1px solid;
@@ -6,18 +11,21 @@
     margin: 5px;
     min-height: 20px;
     position: relative;
+    background-color: #E2E4E6;
+    border-radius: 5px;
 }
 
 .card-container {
-    width: 178px;
+    width: 100%;
     border: 1px solid;
     display: inline-block;
-    cursor: pointer;
+    cursor: move;
     padding: 10px;
     text-align: center;
     margin-bottom: 5px;
-    position: relative;,
+    position: relative;
     background-color: #fff;
+    border-radius: 5px;
 }
 
 .add-task,
@@ -28,7 +36,6 @@
 .cancel-task-change,
 .cancel-change,
 .change-card {
-    background-color: lightgray;
     border: 1px solid;
     border-radius: 5px;
     padding: 5px;
@@ -42,7 +49,6 @@
 .show-add-card,
 .save-tasks {
     width: 100px;
-    background-color: lightgray;
     border: 1px solid;
     border-radius: 5px;
     padding: 5px;
@@ -67,8 +73,11 @@
 .header {
     padding: 5px;
     margin-bottom: 5px;
-    background-color: lightblue;
-    position: relative
+    font-weight: bold;
+    font-size: 16px;
+    position: relative;
+    cursor: move;
+    border-radius: 5px;
 }
 
 .list-desc-container,
@@ -94,6 +103,8 @@
     top: 0px;
     right: 0;
     cursor: pointer;
+    padding-top: 2px;
+    font-size: 12px;
 }
 
 .edit-task,
@@ -123,6 +134,10 @@
     text-align: center;
     background-color: rgba(255, 255, 255, 0.5);
     z-index: 5;
+}
+
+.modal-body {
+    text-align: center;
 }
 
 .change-card-container {

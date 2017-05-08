@@ -1,3 +1,3 @@
 var CardEditTemplate= Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"edit-modal\">\n                <div class=\"change-card-container\"><textarea class=\"change-card-editor\"></textarea>\n                <div class=\"change-card\">Add</div><div class=\"cancel-change\">Cancel</div></div>\n                </div></div>";
+    return "<div class=\"edit-modal\">\n    <div class=\"change-card-container\">\n        <textarea class=\"change-card-editor\"></textarea>\n        <div class=\"btn btn-primary change-card\">Add</div>\n        <div class=\"btn btn-primary cancel-change\">Cancel</div>\n    </div>\n</div>";
 },"useData":true});

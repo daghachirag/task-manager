@@ -30,6 +30,7 @@
                         $(card).trigger('orderUpdated', {index: index, collection: collection});
                     });
                 }, this));
+            this.$('[data-toggle="tooltip"]').tooltip();
         },
 
         "events": {
