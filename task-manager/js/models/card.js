@@ -6,7 +6,8 @@
             return {
                 "createdAt": new Date().toString(),
                 "createdBy": this.getUser(),
-                "order": 0
+                "order": 0,
+                "comments": []
             };
         },
 

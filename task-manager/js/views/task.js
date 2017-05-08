@@ -95,7 +95,7 @@
         },
 
         "removeEditModal": function() {
-            this.$('.modal').remove();
+            this.$('.edit-modal').remove();
         },
 
         "deleteTask": function() {

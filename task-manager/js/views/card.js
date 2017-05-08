@@ -11,7 +11,8 @@
             "click .delete-card": "deleteCard",
             "click .edit-card": "editCard",
             "click .change-card": "changeCard",
-            "click .cancel-change": "removeEditModal"
+            "click .cancel-change": "removeEditModal",
+            "click .add-comments": "addComments"
         },
 
         "render": function() {
@@ -42,7 +43,30 @@
         },
 
         "removeEditModal": function() {
-            this.$('.modal').remove();
+            this.$('.edit-modal').remove();
+        },
+
+        "displayComments": function($container) {
+            var comments = this.model.get('comments');
+            $container.empty();
+            _.forEach(comments, function(currentComment) {
+                $container.append('<li>' + currentComment + '</li>');
+            });
+        },
+
+        "addComments": function() {
+            var $modal = $('#myModal');
+            $modal.modal('show')
+                .find('.btn-primary').off().on("click", $.proxy(function() {
+                    var textarea = $modal.find('textarea'),
+                        comment = textarea.val();
+                    if (comment) {
+                        this.model.get('comments').push(comment);
+                        textarea.val('');
+                        $modal.find('.comments-container').append('<li>' + comment + '</li>');
+                    }
+                }, this));
+            this.displayComments($modal.find('.comments-container'));
         },
 
         "deleteCard": function() {

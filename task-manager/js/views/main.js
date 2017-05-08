@@ -15,6 +15,7 @@
 			this.$el.append(MainTemplate());
             this.$('.list-desc-container').hide();
             this.taskCollection = new TaskManager.Collections.Tasks();
+            this.$el.append(Comments());
         },
 
         "events": {
