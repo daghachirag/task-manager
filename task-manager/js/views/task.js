@@ -30,7 +30,9 @@
                         $(card).trigger('orderUpdated', {index: index, collection: collection});
                     });
                 }, this));
-            this.$('[data-toggle="tooltip"]').tooltip();
+            if (!("ontouchstart" in window)) {
+                this.$('[data-toggle="tooltip"]').tooltip();
+            }
         },
 
         "events": {

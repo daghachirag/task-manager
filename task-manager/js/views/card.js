@@ -26,7 +26,9 @@
                 data.collection.add(this.model);
                 this.model.set("order", data.index);
             }, this));
-            this.$('[data-toggle="tooltip"]').tooltip();
+            if (!("ontouchstart" in window)) {
+                this.$('[data-toggle="tooltip"]').tooltip();
+            }
         },
 
         "editCard": function() {
